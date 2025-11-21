@@ -43,7 +43,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50/50 p-6 dark:bg-slate-950">
+      <div className="min-h-screen p-6">
         <div className="container mx-auto max-w-7xl">
           <div className="mb-8 flex items-center justify-between">
             <Skeleton className="h-10 w-48" />
@@ -76,7 +76,7 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-slate-50 p-6 text-center dark:bg-slate-950">
+      <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
         <div className="mb-6 rounded-full bg-rose-50 p-6 dark:bg-rose-900/20">
           <AlertCircle className="h-12 w-12 text-rose-500 dark:text-rose-400" />
         </div>
@@ -93,7 +93,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50 p-6 transition-colors dark:bg-slate-950">
+    <div className="min-h-screen p-6 transition-colors">
       <div className="container mx-auto max-w-7xl">
         <DashboardHeader onRefresh={handleRefresh} isRefreshing={refreshing} />
         

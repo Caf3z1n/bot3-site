@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Background } from "@/components/Background";
 import { ClientLayout } from "@/components/ClientLayout";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50`}
+        className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen overflow-x-hidden font-sans text-slate-900 antialiased dark:text-slate-50`}
       >
         <ThemeProvider
           attribute="class"
@@ -35,7 +36,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ClientLayout>{children}</ClientLayout>
+          <Background />
+          <div className="relative z-10">
+            <ClientLayout>{children}</ClientLayout>
+          </div>
         </ThemeProvider>
       </body>
     </html>

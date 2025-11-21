@@ -131,7 +131,7 @@ export default function DashboardMock() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50/50 p-6 transition-colors dark:bg-slate-950">
+    <div className="min-h-screen p-6 transition-colors">
       <div className="container mx-auto max-w-7xl">
         <DashboardHeader onRefresh={handleRefresh} isRefreshing={refreshing} />
         <DashboardStats assets={mockAssets} />
