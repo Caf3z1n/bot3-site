@@ -6,13 +6,10 @@ import { LayoutDashboard, History, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
 
-export function Sidebar({
-  isCollapsed,
-  toggleSidebar,
-}: {
-  isCollapsed: boolean;
-  toggleSidebar: () => void;
-}) {
+import { useSidebar } from "@/contexts/SidebarContext";
+
+export function Sidebar() {
+  const { isCollapsed, toggleSidebar } = useSidebar();
   const pathname = usePathname();
 
   const links = [
@@ -25,7 +22,7 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "fixed left-4 top-4 z-40 h-[calc(100vh-2rem)] rounded-3xl border border-slate-200 bg-white/90 shadow-xl backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] dark:bg-slate-900/90 dark:border-slate-800",
+        "fixed left-4 top-4 z-50 h-[calc(100vh-2rem)] rounded-3xl border border-slate-200 bg-white/90 shadow-xl backdrop-blur-sm transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] dark:bg-slate-900/90 dark:border-slate-800",
         isCollapsed ? "w-20" : "w-64"
       )}
     >
