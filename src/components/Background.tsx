@@ -122,10 +122,10 @@ export function Background() {
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvasEl = canvasRef.current;
+    if (!canvasEl) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvasEl.getContext("2d");
     if (!ctx) return;
 
     let animationFrameId = 0;
@@ -143,30 +143,30 @@ export function Background() {
       comet: isDark ? "#c084fc" : "#22c55e",
     };
 
-    function initStars() {
+    const initStars = () => {
       const starCount = Math.min(
         700,
-        Math.max(280, Math.floor((canvas.clientWidth * canvas.clientHeight) / 3500))
+        Math.max(280, Math.floor((canvasEl.clientWidth * canvasEl.clientHeight) / 3500))
       );
-      stars = Array.from({ length: starCount }, () => new Star(canvas, palette));
+      stars = Array.from({ length: starCount }, () => new Star(canvasEl, palette));
       shootingStars = [];
-    }
+    };
 
-    function drawSky() {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
+    const drawSky = () => {
+      const w = canvasEl.clientWidth;
+      const h = canvasEl.clientHeight;
       const gradient = ctx.createLinearGradient(0, 0, w, h);
       palette.gradient.forEach((color, index) => {
         gradient.addColorStop(index / (palette.gradient.length - 1), color);
       });
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, w, h);
-    }
+    };
 
-    function drawNebulae(time: number) {
+    const drawNebulae = (time: number) => {
       if (!palette.nebula.length) return;
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
+      const w = canvasEl.clientWidth;
+      const h = canvasEl.clientHeight;
       const blobs = [
         { x: w * 0.22, y: h * 0.32, r: 360, pulse: 0.02 },
         { x: w * 0.78, y: h * 0.68, r: 480, pulse: 0.025 },
@@ -187,14 +187,14 @@ export function Background() {
       ctx.restore();
       ctx.filter = "none";
       ctx.globalCompositeOperation = "source-over";
-    }
+    };
 
-    function resizeCanvas() {
+    const resizeCanvas = () => {
       const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
+      canvasEl.width = window.innerWidth * dpr;
+      canvasEl.height = window.innerHeight * dpr;
+      canvasEl.style.width = `${window.innerWidth}px`;
+      canvasEl.style.height = `${window.innerHeight}px`;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
       if (isDark) {
@@ -204,9 +204,9 @@ export function Background() {
         shootingStars = [];
         drawSky();
       }
-    }
+    };
 
-    function animate() {
+    const animate = () => {
       tick += 1;
       drawSky();
 
@@ -222,7 +222,7 @@ export function Background() {
       });
 
       if (shootingStars.length < 2 && Math.random() > 0.992) {
-        shootingStars.push(new ShootingStar(canvas, palette));
+        shootingStars.push(new ShootingStar(canvasEl, palette));
       }
 
       shootingStars = shootingStars.filter((s) => s.isAlive());
@@ -232,7 +232,7 @@ export function Background() {
       });
 
       animationFrameId = requestAnimationFrame(animate);
-    }
+    };
 
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
